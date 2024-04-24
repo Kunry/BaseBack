@@ -29,8 +29,8 @@ winston.addColors(colors);
 
 // Confiigiramos el formato que tendrán nuestros logs
 const format = winston.format.combine(
-	winston.format.timestamp({ alias: 'Base_Back', format: 'DD-MM-YYYY HH:mm:ss:ms' }),
-	winston.format.colorize({ all: true }),
+	winston.format.timestamp({ format: 'DD-MM-YYYY HH:mm:ss:ms' }),
+	// winston.format.colorize({ all: true }),
 	winston.format.printf((info) => `${info.timestamp} ${info.level}: ${info.message}`)
 );
 // Le indicamos que acciones queremos hacer, en este caso los logs y el guardado de estos si es un error solo se generará en el archivo error.log y para todos en otro que se llame all.log

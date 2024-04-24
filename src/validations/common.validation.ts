@@ -9,6 +9,11 @@ export const mongoIdValidation = Joi.any().external((value) => {
 		if (isValidObjectId(value) && String(new Types.ObjectId(value)) === value.toString()) {
 			return value;
 		} else {
-			throw new BaseError('value "invalid" at path "_id"', 400);
+			throw new BaseError(' Invalid id', 400, 'Invalid id');
 		}
+});
+
+export const paginationValidation = Joi.object({
+	limit: Joi.number().default(4).max(10).min(1).required(),
+	page: Joi.number().default(1).min(1).required()
 });

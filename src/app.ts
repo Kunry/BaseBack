@@ -38,8 +38,9 @@ app.use(loaders.morganMiddleware);
 
 const processId = process.pid;
 // Ruta necesario para Faable, siempre devolverá un estado 200.
-app.get('/', async (_req, res) => {
-	res.json({ status: `Process handled by pid: ${processId}` });
+app.get('/', async (req, res) => {
+	console.log(req.body);
+	res.json({ status: `Process 200` });
 });
 // Cargamos todos los middlewares que se encuentren que exporte el archivo ./middleware/index.ts
 loaders.middlewares(app);
@@ -47,6 +48,10 @@ loaders.middlewares(app);
 loaders.router(app);
 // Controlamos cualquier error que ocurra de la aplicación que se envie por next.
 app.use(errorHandler);
+
+app.use((_req, res) => {
+	res.status(404).json({ message: 'Not Found' });
+});
 
 // Ejecutamos la BD e inicializamos el servidor.
 new Promise((resolve) => resolve(MongoConnection.open()))
